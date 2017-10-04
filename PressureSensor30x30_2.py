@@ -1,34 +1,4 @@
-'''
-import numpy, glumpy
-from glumpy.pylab import *
-
-window = glumpy.Window(256,64)
-Z = data.astype(numpy.float32)
-
-t0, frames, t = 0,0,0
-fig = plt.figure(figsize=(7,7))
-ax = plt.subplot(111)
-ax = imshow(Z[:,:,0], origin='lower', interpolation='bilinear')
-show()
-window = glumpy.active_window()
-
-@window.event
-def on_idle(dt):    
-    global Z, t0, frames, t
-
-    t += dt
-    frames = frames + 1
-    if frames > 248:
-        fps = float(frames)/(t-t0)
-        print('FPS: %.2f (%d frames in %.2f seconds)' ,% (fps, frames, t-t0))
-        frames,t0 = 0, t
-
-    for image, axis, alpha in items:
-        image.data[...] = Z[:,:,frames]
-        image.update()
-    window.draw()
-
-window.mainloop()'''
+# -*- coding: utf-8 -*-
 
 
 import serial
@@ -36,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import glumpy
+from matplotlib import animation
 
 zero = np.zeros((30,30))
 df=pd.DataFrame(zero)
@@ -58,7 +28,7 @@ row=0
 def init():
     sns.heatmap(df, vmax=1000,cmap="plasma",cbar=False,square=True)
     
-def animate():
+def animate(i):
     if cmd == 'exit':
         ser.close()
         exit()
@@ -84,17 +54,10 @@ def animate():
 ser = serial.Serial(port, baud, timeout=1)
 if ser.isOpen():
      print(ser.name + ' is open...')
+     
 
-   
+anim = animation.FuncAnimation(fig, animate, interval=10)
+plt.show()
 
-window = glumpy.Window(30,30)
-window = glumpy.active_window()
-
-@window.event
-def on_draw():
-    window.clear()
-    animate()
-    
-window.mainloop()
 
 
