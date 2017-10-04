@@ -26,6 +26,7 @@ plt.axes().set_aspect('equal')
 row=0
 
 def init():
+    ser.flush
     sns.heatmap(df, vmax=1000,cmap="plasma",cbar=False,square=True)
     
 def animate(i):
@@ -33,7 +34,7 @@ def animate(i):
         ser.close()
         exit()
     else:
-        #ser.flushInput()
+        ser.flushInput()
         #print("Please Enter CMD")
         #cmd=input()
         header=0
@@ -48,16 +49,18 @@ def animate(i):
                     data=int.from_bytes(temp,byteorder='little')
                     df.set_value(29-i, j, data)
             Z=df.values
-            plt.contourf(x,y,Z, 50, cmap=plt.cm.jet,vmin=0, vmax=700)                             
+            plt.contourf(x,y,Z, 50, cmap=plt.cm.jet,vmin=100, vmax=500) 
             plt.show()
+            
 
 ser = serial.Serial(port, baud, timeout=1)
 if ser.isOpen():
      print(ser.name + ' is open...')
      
-
-anim = animation.FuncAnimation(fig, animate, interval=10)
+     
+anim = animation.FuncAnimation(fig, animate,frames=11200,interval=10,repeat=False)
 plt.show()
+
 
 
 

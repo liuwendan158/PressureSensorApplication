@@ -28,7 +28,7 @@ from matplotlib import animation
 
 zero = np.zeros((30,30))
 df=pd.DataFrame(zero)
-port = "COM6"
+port = "COM20"
 baud = 115200
 temp = 0b101111
 data = 0
@@ -36,7 +36,7 @@ header = 0
 
 x=[0,1,2,3,4,5,6]
 y=[0,1,2,3,4,5,6,7,8,9]
-cmd="COM6"
+cmd="COM20"
 fig=plt.figure()
 row=0
 
@@ -48,7 +48,7 @@ def animate(i):
         ser.close()
         exit()
     else:
-        #ser.flushInput()
+        ser.flushInput()
         #print("Please Enter CMD")
         #cmd=input()
         header=0
@@ -73,7 +73,7 @@ if ser.isOpen():
     for i in (leng,leng+ser.in_waiting)
         flashdata[i]=ser.read();'''
 
-anim = animation.FuncAnimation(fig, animate, interval=500)
+anim = animation.FuncAnimation(fig, animate, interval=10)
 plt.show()
 
 
