@@ -1,9 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct 10 09:33:34 2017
+
+@author: user
+"""
+
 import serial
 import numpy as np
 from time import time
 import matplotlib.pyplot as plt
 #from pylab import rcParams
-
+import seaborn as sns
 
 M=np.zeros((30,30))
 port = "COM20"
@@ -46,21 +53,11 @@ rw=animate()
 M=next(rw)
 past=time()
 
+
 for i in range(60000):
     plt.clf()
     M=next(rw)
-    plt.contourf(X, Y, M, 8, cmap=plt.cm.jet,vmin=50, vmax=1000)
-	# use plt.contour to add contour lines
-    #C = plt.contour(X, Y, M, 8, colors='black', linewidth=.5)
-    #plt.clabel(C, inline=True, fontsize=10)
-    plt.title('NAMI Pressure Sensor')
-    plt.xticks(())
-    plt.yticks(())
-    plt.figure("Nano and Advanced Materials Institue")
-    plt.axes().set_aspect('equal')
-    #plt.figure(figsize=(10,10))
-    #rcParams['figure.figsize'] = 10, 10
+    sns.heatmap(M, vmax=1000,cmap="plasma",cbar=True,square=True)
+    plt.show()
     plt.pause(0.03)
     rightnow=time()
-
-

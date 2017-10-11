@@ -38,6 +38,7 @@ import pandas as pd
 import seaborn as sns
 import glumpy
 
+
 zero = np.zeros((30,30))
 df=pd.DataFrame(zero)
 port = "COM20"
@@ -88,13 +89,12 @@ if ser.isOpen():
    
 
 window = glumpy.Window(30,30)
-window = glumpy.active_window()
 
 @window.event
 def on_draw():
-    window.clear()
+    #window.clear()
     animate()
     
-window.mainloop()
+#window.mainloop()
 
 
