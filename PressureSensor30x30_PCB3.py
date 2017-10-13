@@ -49,7 +49,7 @@ past=time()
 for i in range(60000):
     plt.clf()
     M=next(rw)
-    plt.contourf(X, Y, M, 50, cmap=plt.cm.jet,vmin=100, vmax=300)
+    plt.contourf(X, Y, M, 50, cmap=plt.cm.jet,vmin=50, vmax=500)
 	# use plt.contour to add contour lines
     #C = plt.contour(X, Y, M, 8, colors='black', linewidth=.5)
     #plt.clabel(C, inline=True, fontsize=10)
